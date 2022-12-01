@@ -1,0 +1,141 @@
+$default-m-size: 1rem;
+
+// html {
+//     height: 100vh;
+// }
+
+// body{
+//     height: 100%;
+//     width: 100%;
+//     position: absolute;
+//     top: 0;
+// }
+
+html,
+body {
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    font-family: "Zen Kaku Gothic New", sans-serif;
+
+    .title-link {
+        text-decoration: none;
+
+        .title {
+            color: black;
+            font-size: 2rem;
+            margin: 1.5rem 1rem;
+        }
+    }
+
+    .show-select-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+
+        min-height: 40vh;
+
+        .grid-item {
+            margin: 0;
+            padding: 1rem;
+
+            pointer-events: none;
+
+            border: none;
+
+            color: black;
+            background-color: transparent;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            .hand-emoji {
+                font-size: 5rem;
+            }
+
+            .hand-name-jp {
+                font-size: 1.5rem;
+            }
+
+            .hand-name {
+                color: gray;
+            }
+        }
+
+        .button-container {
+            .button {
+                &:first-child {
+                    margin-right: 1rem;
+                }
+
+                font-size: 1rem;
+                padding: 0.5rem 1rem;
+                border: 1px lightgray solid;
+                border-radius: 0.5rem;
+
+                &-cancel {
+                    color: black;
+                }
+                &-submit {
+                    background-color: rgb(27, 75, 247);
+                    color: white;
+
+                    &:disabled {
+                        background-color: rgb(83, 119, 250);
+                    }
+                }
+            }
+        }
+    }
+
+    .grid-wrapper {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        border: 1px lightgray solid;
+
+        position: absolute;
+        bottom: 0;
+        height: 40%;
+        width: 100%;
+
+        .grid-item {
+            margin: 0;
+            padding: 1rem;
+
+            border: none;
+
+            color: black;
+            background-color: transparent;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            cursor: pointer;
+
+            &.selected {
+                background-color: rgba(51, 255, 0, 0.15);
+            }
+
+            &:not(:last-child) {
+                border-right: 1px lightgray solid;
+            }
+
+            .hand-emoji {
+                font-size: 5rem;
+            }
+
+            .hand-name-jp {
+                font-size: 1.5rem;
+            }
+
+            .hand-name {
+                color: gray;
+            }
+        }
+    }
+}
