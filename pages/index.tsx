@@ -1,6 +1,7 @@
 import HandOption from "components/handOption/HandOption";
 import HandOptionWrapper from "components/handOption/HandOptionWrapper";
 import ShowSelectWrapper from "components/showSelect/ShowSelectWrapper";
+import { HandNum } from "constants/rsp";
 import { STAT_LOCALSTORAGE_KEY } from "constants/stat";
 import Head from "next/head";
 import Link from "next/link";
@@ -14,7 +15,18 @@ export default function Home() {
     );
     const reset = () => {
         setIsSelected([false, false, false]);
-        setOrder([0, 1, 2].sort(() => Math.random() - Math.random()));
+        setOrder((prev) => {
+            const newOrder = [0, 1, 2];
+            newOrder.sort(() => Math.random() - Math.random());
+            while (
+                prev[0] == newOrder[0] ||
+                prev[1] == newOrder[1] ||
+                prev[2] == newOrder[2]
+            ) {
+                newOrder.sort(() => Math.random() - Math.random());
+            }
+            return newOrder;
+        });
     };
     const [stat, setStat] = useState<rspStatItem[]>();
 
@@ -47,7 +59,7 @@ export default function Home() {
         setIsSelected(newIsSelected);
     };
 
-    const handGridItems = (order as (0 | 1 | 2)[]).map((i) => {
+    const handGridItems = (order as HandNum[]).map((i) => {
         return (
             <HandOption
                 hand={i}
@@ -85,7 +97,7 @@ export default function Home() {
                     <>
                         <h2>あなたが選択したのは</h2>
                         <HandOption
-                            hand={isSelected.indexOf(true) as 0 | 1 | 2}
+                            hand={isSelected.indexOf(true) as HandNum}
                         />
                         <div className="button-container">
                             <button
@@ -98,10 +110,9 @@ export default function Home() {
                                 className="button button-submit"
                                 disabled={!isSelected.includes(true)}
                                 onClick={() => {
-                                    const hand = isSelected.indexOf(true) as
-                                        | 0
-                                        | 1
-                                        | 2;
+                                    const hand = isSelected.indexOf(
+                                        true
+                                    ) as HandNum;
                                     addStat({
                                         hand: hand,
                                         timestamp: new Date(),

@@ -1,8 +1,8 @@
-import { handEmojis, hands, handsJp } from "constants/rsp";
+import { handEmojis, HandNum, hands, handsJp } from "constants/rsp";
 import { MouseEventHandler } from "react";
 
 export default (props: {
-    hand: 0 | 1 | 2;
+    hand: HandNum;
     onClick?: MouseEventHandler<HTMLButtonElement>;
     selected?: boolean;
 }) => {

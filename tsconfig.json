@@ -20,7 +20,8 @@
             "pages/*": ["./pages/*"],
             "styles/*": ["./styles/*"],
             "public/*": ["./public/*"],
-            "constants/*": ["./constants/*"]
+            "constants/*": ["./constants/*"],
+            "util/*": ["./util/*"]
             // "functions/*": ["./functions/*"],
         }
     },

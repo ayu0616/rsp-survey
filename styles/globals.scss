@@ -139,3 +139,19 @@ body {
         }
     }
 }
+
+
+.stat-container{
+
+    .stat{
+        display: flex;
+
+        div:not(:last-child){
+            margin-right: 1rem;
+        }
+
+        &-title{
+
+        }
+    }
+}

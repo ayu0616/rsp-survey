@@ -1,3 +1,5 @@
+import Stat from "components/stat/Stat";
+import StatHand from "components/stat/StatHand";
 import { STAT_LOCALSTORAGE_KEY } from "constants/stat";
 import Head from "next/head";
 import Link from "next/link";
@@ -11,10 +13,6 @@ export default () => {
         const localRawData = localStorage.getItem(STAT_LOCALSTORAGE_KEY);
         localRawData ? setStat(JSON.parse(localRawData)) : "";
     }, []);
-
-    const count = (hand: 0 | 1 | 2) => {
-        return stat.filter((item) => item.hand == hand).length;
-    };
 
     return (
         <>
@@ -42,24 +40,12 @@ export default () => {
             >
                 統計データを消去
             </button>
-            <div>
-                <div>
-                    <div>総計</div>
-                    <div>{stat.length}</div>
-                </div>
-                <div>
-                    <div>グー</div>
-                    <div>{count(0)}</div>
-                </div>
-                <div>
-                    <div>チョキ</div>
-                    <div>{count(1)}</div>
-                </div>
-                <div>
-                    <div>パー</div>
-                    <div>{count(2)}</div>
-                </div>
-            </div>
+            <table className="stat-container">
+                <Stat title="総計" count={stat.length} totalCount={stat.length}></Stat>
+                {([0, 1, 2] as const).map((i) => (
+                    <StatHand hand={i} key={i} stat={stat}></StatHand>
+                ))}
+            </table>
         </>
     );
 };

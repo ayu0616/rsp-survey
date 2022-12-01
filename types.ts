@@ -1,4 +1,6 @@
+import { HandNum } from "constants/rsp";
+
 export type rspStatItem = {
     timestamp: Date;
-    hand: 0 | 1 | 2;
+    hand: HandNum;
 };
