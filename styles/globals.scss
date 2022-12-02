@@ -18,6 +18,11 @@ body {
     margin: 0;
     font-family: "Zen Kaku Gothic New", sans-serif;
 
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
     .title-link {
         text-decoration: none;
 
@@ -140,18 +145,15 @@ body {
     }
 }
 
-
-.stat-container{
-
-    .stat{
+.stat-container {
+    .stat {
         display: flex;
 
-        div:not(:last-child){
+        div:not(:last-child) {
             margin-right: 1rem;
         }
 
-        &-title{
-
+        &-title {
         }
     }
 }
