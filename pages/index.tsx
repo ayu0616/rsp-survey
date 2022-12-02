@@ -1,12 +1,11 @@
 import HandOption from "components/handOption/HandOption";
 import HandOptionWrapper from "components/handOption/HandOptionWrapper";
 import ShowSelectWrapper from "components/showSelect/ShowSelectWrapper";
-import { HandNum } from "constants/rsp";
 import { STAT_LOCALSTORAGE_KEY } from "constants/stat";
 import Head from "next/head";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { rspStatItem } from "types";
+import { HandNum, rspStatItem } from "types";
 
 export default function Home() {
     const [isSelected, setIsSelected] = useState([false, false, false]);
