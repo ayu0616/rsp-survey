@@ -5,7 +5,8 @@ import { STAT_LOCALSTORAGE_KEY } from "constants/stat";
 import Head from "next/head";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { HandNum, rspStatItem } from "types";
+import { GenderNum, HandNum, rspStatItem } from "types";
+import { genders, gendersJp } from "../constants/rsp";
 
 export default function Home() {
     const [isSelected, setIsSelected] = useState([false, false, false]);
@@ -26,8 +27,11 @@ export default function Home() {
             }
             return newOrder;
         });
+        setGenderValue(undefined);
     };
     const [stat, setStat] = useState<rspStatItem[]>();
+
+    const [genderValue, setGenderValue] = useState<GenderNum>();
 
     useEffect(() => {
         const localRawData = localStorage.getItem(STAT_LOCALSTORAGE_KEY);
@@ -65,6 +69,7 @@ export default function Home() {
                 onClick={(e) => handOnClick(Number(e.currentTarget.value))}
                 selected={isSelected[i]}
                 key={i}
+                disabled={genderValue == undefined}
             />
         );
     });
@@ -92,7 +97,7 @@ export default function Home() {
             <hr style={{ color: "lightgray" }} />
 
             <ShowSelectWrapper>
-                {isSelected.includes(true) ? (
+                {isSelected.includes(true) && genderValue != undefined ? (
                     <>
                         <h2>あなたが選択したのは</h2>
                         <HandOption
@@ -115,6 +120,7 @@ export default function Home() {
                                     addStat({
                                         hand: hand,
                                         timestamp: new Date(),
+                                        gender: genderValue,
                                     });
                                     reset();
                                 }}
@@ -124,7 +130,33 @@ export default function Home() {
                         </div>
                     </>
                 ) : (
-                    ""
+                    <div>
+                        <h2>性別を選択してください</h2>
+                        <div className="gender-form-wrapper">
+                            {([0, 1, 2] as GenderNum[]).map((i) => {
+                                return (
+                                    <div className="gender-radio-wrapper">
+                                        <input
+                                            id={genders[i]}
+                                            value={genders[i]}
+                                            type="radio"
+                                            name="gender"
+                                            checked={i == genderValue}
+                                            onChange={() => {
+                                                setGenderValue(i);
+                                            }}
+                                        />
+                                        <label
+                                            htmlFor={genders[i]}
+                                            className="radio-label"
+                                        >
+                                            {gendersJp[i]}
+                                        </label>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
                 )}
             </ShowSelectWrapper>
 

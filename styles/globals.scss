@@ -89,6 +89,36 @@ body {
                 }
             }
         }
+
+        .gender-form-wrapper {
+            .gender-radio-wrapper {
+                &:not(:last-child) {
+                    margin-bottom: 1rem;
+                }
+
+                input[name="gender"] {
+                    display: none;
+
+                    + .radio-label {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        padding: 1rem;
+
+                        border: 1px lightgray solid;
+                        border-radius: 10px;
+                    }
+
+                    &:checked {
+                        + .radio-label {
+                            background-color: rgba(51, 255, 0, 0.15);
+                            border-color: rgba(0,128,0, 0.6);
+                            box-shadow: 0 0 0 3px rgba(0,128,0, 0.5);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     .grid-wrapper {
@@ -119,10 +149,18 @@ body {
 
             &.selected {
                 background-color: rgba(51, 255, 0, 0.15);
+                // border-color: green;
+                box-shadow: 0 0 0 3px rgba(0,128,0, 0.5);
             }
 
             &:not(:last-child) {
                 border-right: 1px lightgray solid;
+            }
+
+            &:disabled {
+                div {
+                    opacity: 0.5;
+                }
             }
 
             .hand-emoji {
@@ -140,18 +178,15 @@ body {
     }
 }
 
-
-.stat-container{
-
-    .stat{
+.stat-container {
+    .stat {
         display: flex;
 
-        div:not(:last-child){
+        div:not(:last-child) {
             margin-right: 1rem;
         }
 
-        &-title{
-
+        &-title {
         }
     }
 }
