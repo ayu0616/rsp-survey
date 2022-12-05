@@ -98,7 +98,9 @@ export default function Home() {
                         <div className="button-container">
                             <button
                                 className="button button-cancel"
-                                onClick={reset}
+                                onClick={() => {
+                                    setIsSelected([false, false, false]);
+                                }}
                             >
                                 キャンセル
                             </button>
