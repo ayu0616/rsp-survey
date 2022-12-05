@@ -19,8 +19,8 @@ export default function Home() {
             const newOrder = [0, 1, 2];
             newOrder.sort(() => Math.random() - Math.random());
             while (
-                prev[0] == newOrder[0] ||
-                prev[1] == newOrder[1] ||
+                prev[0] == newOrder[0] &&
+                prev[1] == newOrder[1] &&
                 prev[2] == newOrder[2]
             ) {
                 newOrder.sort(() => Math.random() - Math.random());
