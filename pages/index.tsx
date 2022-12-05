@@ -35,6 +35,15 @@ export default function Home() {
 
     const [gameCount, setGameCount] = useState<1 | 2>(1);
 
+    const [toSend, setToSend] = useState<rspStatItem>({
+        timestamp: new Date(),
+        hand1: 0,
+        result1: 0,
+        hand2: 0,
+        result2: 0,
+        gender: 0,
+    });
+
     useEffect(() => {
         const localRawData = localStorage.getItem(STAT_LOCALSTORAGE_KEY);
         if (localRawData) {
@@ -62,6 +71,15 @@ export default function Home() {
             newIsSelected[i] = i == value;
         }
         setIsSelected(newIsSelected);
+    };
+
+    const submitFirst = (hand: HandNum, gender: GenderNum) => {
+        setToSend((prev) => {
+            prev.hand1 = hand;
+            prev.gender = gender;
+            prev.timestamp = new Date();
+            return prev;
+        });
     };
 
     const handGridItems = (order as HandNum[]).map((i) => {
@@ -111,12 +129,7 @@ export default function Home() {
                                     const hand = isSelected.indexOf(
                                         true
                                     ) as HandNum;
-                                    addStat({
-                                        hand: hand,
-                                        timestamp: new Date(),
-                                        gender: genderValue,
-                                    });
-                                    reset();
+                                    submitFirst(hand, genderValue);
                                 }}
                             >
                                 決定
