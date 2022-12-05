@@ -33,6 +33,8 @@ export default function Home() {
 
     const [genderValue, setGenderValue] = useState<GenderNum>();
 
+    const [gameCount, setGameCount] = useState<1 | 2>(1);
+
     useEffect(() => {
         const localRawData = localStorage.getItem(STAT_LOCALSTORAGE_KEY);
         if (localRawData) {
