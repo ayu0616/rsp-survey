@@ -73,7 +73,7 @@ export default function Home() {
         setIsSelected(newIsSelected);
     };
 
-    const submitFirst = (hand: HandNum, gender: GenderNum) => {
+    const onFirstClick = (hand: HandNum, gender: GenderNum) => {
         setToSend((prev) => {
             prev.hand1 = hand;
             prev.gender = gender;
@@ -129,7 +129,7 @@ export default function Home() {
                                     const hand = isSelected.indexOf(
                                         true
                                     ) as HandNum;
-                                    submitFirst(hand, genderValue);
+                                    onFirstClick(hand, genderValue);
                                 }}
                             >
                                 決定
