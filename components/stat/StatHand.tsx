@@ -1,9 +1,10 @@
-import { handsJp } from "constants/rsp";
 import { HandNum, rspStatItem } from "types";
 import countStat from "util/countStat";
 import Stat from "./Stat";
 
-export default (props: { hand: HandNum; stat: rspStatItem[] }) => {
+const handsJp = ["グー", "チョキ", "パー"] as const;
+
+const StatHand = (props: { hand: HandNum; stat: rspStatItem[] }) => {
     return (
         <Stat
             title={handsJp[props.hand]}
@@ -12,3 +13,4 @@ export default (props: { hand: HandNum; stat: rspStatItem[] }) => {
         ></Stat>
     );
 };
+export default StatHand;
