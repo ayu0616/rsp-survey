@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { rspStatItem } from "types";
 import sleep from "util/sleep";
 
-export default () => {
+const Home = () => {
     const [stat, setStat] = useState<rspStatItem[]>([]);
     useEffect(() => {
         const localRawData = localStorage.getItem(STAT_LOCALSTORAGE_KEY);
@@ -41,7 +41,11 @@ export default () => {
                 統計データを消去
             </button>
             <table className="stat-container">
-                <Stat title="総計" count={stat.length} totalCount={stat.length}></Stat>
+                <Stat
+                    title="総計"
+                    count={stat.length}
+                    totalCount={stat.length}
+                ></Stat>
                 {([0, 1, 2] as const).map((i) => (
                     <StatHand hand={i} key={i} stat={stat}></StatHand>
                 ))}
@@ -49,3 +53,4 @@ export default () => {
         </>
     );
 };
+export default Home;

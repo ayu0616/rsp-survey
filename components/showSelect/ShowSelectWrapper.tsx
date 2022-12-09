@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 
-export default (props:{children: ReactNode}) => {
-    return <div className="show-select-wrapper">{ props.children}</div>;
+const ShowSelectWrapper = (props: { children: ReactNode }) => {
+    return <div className="show-select-wrapper">{props.children}</div>;
 };
+export default ShowSelectWrapper;

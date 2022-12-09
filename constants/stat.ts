@@ -1,1 +1,1 @@
-export const STAT_LOCALSTORAGE_KEY="stats"
+export const STAT_LOCALSTORAGE_KEY = "stats";

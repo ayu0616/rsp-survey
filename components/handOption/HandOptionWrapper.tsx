@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 
-export default (props: { children: ReactNode }) => {
+const HandOptionWrapper = (props: { children: ReactNode }) => {
     return <div className="grid-wrapper">{props.children}</div>;
 };
+export default HandOptionWrapper;
