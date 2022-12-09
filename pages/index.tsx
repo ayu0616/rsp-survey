@@ -1,20 +1,32 @@
 import HandOption from "components/handOption/HandOption";
 import HandOptionWrapper from "components/handOption/HandOptionWrapper";
+import Modal from "components/modal/Modal";
 import ShowSelectWrapper from "components/showSelect/ShowSelectWrapper";
 import { STAT_LOCALSTORAGE_KEY } from "constants/stat";
 import Head from "next/head";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { GenderNum, HandNum, rspStatItem } from "types";
-import { genders, gendersJp } from "../constants/rsp";
+import { GenderNum, HandNum, ResultNum, rspStatItem } from "types";
+
+const genders = ["male", "female", "others"] as const;
+const gendersJp = ["男", "女", "その他／無回答"] as const;
+
+const results = ["draw", "win", "lose"] as const;
+const resultJp = ["あいこ", "勝ち", "負け"] as const;
+
+const resultColor = {
+    0: "green",
+    1: "red",
+    2: "blue",
+};
 
 export default function Home() {
     const [isSelected, setIsSelected] = useState([false, false, false]);
     const [order, setOrder] = useState(
         [0, 1, 2].sort(() => Math.random() - Math.random())
     );
-    const reset = () => {
-        setIsSelected([false, false, false]);
+
+    const shuffleOrder = () => {
         setOrder((prev) => {
             const newOrder = [0, 1, 2];
             newOrder.sort(() => Math.random() - Math.random());
@@ -27,11 +39,32 @@ export default function Home() {
             }
             return newOrder;
         });
+    };
+    const reset = () => {
+        setIsSelected([false, false, false]);
+        shuffleOrder();
         setGenderValue(undefined);
+        setGameCount(1);
+        setResult(undefined);
     };
     const [stat, setStat] = useState<rspStatItem[]>();
 
     const [genderValue, setGenderValue] = useState<GenderNum>();
+
+    const [gameCount, setGameCount] = useState(1);
+
+    const [toSend, setToSend] = useState<rspStatItem>({
+        timestamp: new Date(),
+        hand1: 0,
+        result1: 0,
+        hand2: 0,
+        result2: 0,
+        gender: 0,
+    });
+
+    const [result, setResult] = useState<ResultNum>();
+
+    const [isModalShow, setIsModalShow] = useState(false);
 
     useEffect(() => {
         const localRawData = localStorage.getItem(STAT_LOCALSTORAGE_KEY);
@@ -62,6 +95,29 @@ export default function Home() {
         setIsSelected(newIsSelected);
     };
 
+    const onFirstClick = (
+        hand: HandNum,
+        gender: GenderNum,
+        result: ResultNum
+    ) => {
+        setToSend((prev) => {
+            prev.hand1 = hand;
+            prev.gender = gender;
+            prev.result1 = result;
+            prev.timestamp = new Date();
+            return prev;
+        });
+    };
+
+    const onSecondClick = (hand: HandNum, result: ResultNum) => {
+        setToSend((prev) => {
+            prev.hand2 = hand;
+            prev.result2 = result;
+            addStat(prev);
+            return prev;
+        });
+    };
+
     const handGridItems = (order as HandNum[]).map((i) => {
         return (
             <HandOption
@@ -75,7 +131,7 @@ export default function Home() {
     });
 
     return (
-        <>
+        <div>
             <Head>
                 <title>じゃんけんアンケート</title>
             </Head>
@@ -96,7 +152,9 @@ export default function Home() {
                         <div className="button-container">
                             <button
                                 className="button button-cancel"
-                                onClick={reset}
+                                onClick={() => {
+                                    setIsSelected([false, false, false]);
+                                }}
                             >
                                 キャンセル
                             </button>
@@ -107,25 +165,44 @@ export default function Home() {
                                     const hand = isSelected.indexOf(
                                         true
                                     ) as HandNum;
-                                    addStat({
-                                        hand: hand,
-                                        timestamp: new Date(),
-                                        gender: genderValue,
+                                    setResult(() => {
+                                        const result = Math.floor(
+                                            Math.random() * 3
+                                        ) as ResultNum;
+                                        switch (gameCount) {
+                                            case 1:
+                                                onFirstClick(
+                                                    hand,
+                                                    genderValue,
+                                                    result
+                                                );
+                                                shuffleOrder();
+                                                break;
+                                            case 2:
+                                                onSecondClick(hand, result);
+                                                break;
+                                        }
+                                        return result;
                                     });
-                                    reset();
+                                    setIsSelected([false, false, false]);
+                                    setGameCount((p) => p + 1);
+                                    setIsModalShow(true);
                                 }}
                             >
                                 決定
                             </button>
                         </div>
                     </>
-                ) : (
+                ) : gameCount == 1 ? (
                     <div>
                         <h2>性別を選択してください</h2>
                         <div className="gender-form-wrapper">
                             {([0, 1, 2] as GenderNum[]).map((i) => {
                                 return (
-                                    <div className="gender-radio-wrapper">
+                                    <div
+                                        className="gender-radio-wrapper"
+                                        key={i}
+                                    >
                                         <input
                                             id={genders[i]}
                                             value={genders[i]}
@@ -147,10 +224,38 @@ export default function Home() {
                             })}
                         </div>
                     </div>
+                ) : (
+                    ""
                 )}
             </ShowSelectWrapper>
 
             <HandOptionWrapper>{handGridItems}</HandOptionWrapper>
-        </>
+
+            <Modal
+                title="結果"
+                isShow={isModalShow}
+                setIsShow={setIsModalShow}
+                onButtonClick={() => {
+                    if (gameCount > 2) {
+                        reset();
+                    }
+                }}
+            >
+                <div className="result-wrapper">
+                    <div
+                        className="result-jp"
+                        style={{
+                            color:
+                                result != undefined ? resultColor[result] : "",
+                        }}
+                    >
+                        {result != undefined ? resultJp[result] : ""}
+                    </div>
+                    <div className="result-en">
+                        {result != undefined ? results[result] : ""}
+                    </div>
+                </div>
+            </Modal>
+        </div>
     );
 }

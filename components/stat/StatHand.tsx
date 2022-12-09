@@ -1,5 +1,5 @@
-import { HandNum, handsJp } from "constants/rsp";
-import { rspStatItem } from "types";
+import { handsJp } from "constants/rsp";
+import { HandNum, rspStatItem } from "types";
 import countStat from "util/countStat";
 import Stat from "./Stat";
 
