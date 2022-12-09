@@ -4,7 +4,7 @@ import "styles/globals.scss";
 
 export default function App({ Component, pageProps }: AppProps) {
     return (
-        <>
+        <div>
             <Head>
                 <meta
                     name="viewport"
@@ -22,6 +22,6 @@ export default function App({ Component, pageProps }: AppProps) {
                 />
             </Head>
             <Component {...pageProps} />
-        </>
+        </div>
     );
 }
