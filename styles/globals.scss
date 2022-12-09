@@ -1,5 +1,23 @@
 $default-m-size: 1rem;
 
+.button {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    border: 1px lightgray solid;
+    border-radius: 0.5rem;
+}
+
+.button-primary {
+    @extend .button;
+
+    background-color: rgb(27, 75, 247);
+    color: white;
+
+    &:disabled {
+        background-color: rgb(83, 119, 250);
+    }
+}
+
 // html {
 //     height: 100vh;
 // }
@@ -17,6 +35,11 @@ body {
     padding: 0;
     margin: 0;
     font-family: "Zen Kaku Gothic New", sans-serif;
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 
     .title-link {
         text-decoration: none;
@@ -66,25 +89,40 @@ body {
         }
 
         .button-container {
-            .button {
-                &:first-child {
-                    margin-right: 1rem;
+            .button-cancel {
+                margin-right: 1rem;
+                color: black;
+            }
+            .button-submit {
+                @extend .button-primary;
+            }
+        }
+
+        .gender-form-wrapper {
+            .gender-radio-wrapper {
+                &:not(:last-child) {
+                    margin-bottom: 1rem;
                 }
 
-                font-size: 1rem;
-                padding: 0.5rem 1rem;
-                border: 1px lightgray solid;
-                border-radius: 0.5rem;
+                input[name="gender"] {
+                    display: none;
 
-                &-cancel {
-                    color: black;
-                }
-                &-submit {
-                    background-color: rgb(27, 75, 247);
-                    color: white;
+                    + .radio-label {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        padding: 1rem;
 
-                    &:disabled {
-                        background-color: rgb(83, 119, 250);
+                        border: 1px lightgray solid;
+                        border-radius: 10px;
+                    }
+
+                    &:checked {
+                        + .radio-label {
+                            background-color: rgba(51, 255, 0, 0.15);
+                            border-color: rgba(0, 128, 0, 0.6);
+                            box-shadow: 0 0 0 3px rgba(0, 128, 0, 0.5);
+                        }
                     }
                 }
             }
@@ -119,10 +157,18 @@ body {
 
             &.selected {
                 background-color: rgba(51, 255, 0, 0.15);
+                // border-color: green;
+                box-shadow: 0 0 0 3px rgba(0, 128, 0, 0.5);
             }
 
             &:not(:last-child) {
                 border-right: 1px lightgray solid;
+            }
+
+            &:disabled {
+                div {
+                    opacity: 0.5;
+                }
             }
 
             .hand-emoji {
@@ -140,18 +186,82 @@ body {
     }
 }
 
-
-.stat-container{
-
-    .stat{
+.stat-container {
+    .stat {
         display: flex;
 
-        div:not(:last-child){
+        div:not(:last-child) {
             margin-right: 1rem;
         }
 
-        &-title{
+        &-title {
+        }
+    }
+}
 
+div.modal {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: rgba($color: #000000, $alpha: 0.4);
+
+    div.modal-back {
+        width: 50%;
+        max-height: 80%;
+
+        background-color: white;
+        border-radius: 0.5rem;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        > div {
+            padding: 1rem;
+
+            &:not(:last-child) {
+                border-bottom: lightgray 1px solid;
+            }
+        }
+
+        div.modal-header {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        div.modal-body {
+            flex-grow: auto;
+
+            div.result-wrapper{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                div.result-jp{
+                    font-size: 5rem;
+                    font-weight: bold;
+                }
+
+                div.result-en{
+                    font-size: 2rem;
+                    color: gray;
+                }
+            }
+        }
+
+        div.modal-footer {
+            display: flex;
+            justify-content: end;
+
+            button.modal-button {
+                @extend .button-primary;
+            }
         }
     }
 }
