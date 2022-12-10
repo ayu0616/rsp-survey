@@ -46,6 +46,14 @@ export default function Home() {
         setGenderValue(undefined);
         setGameCount(1);
         setResult(undefined);
+        setToSend({
+            timestamp: new Date(),
+            hand1: 0,
+            result1: 0,
+            hand2: 0,
+            result2: 0,
+            gender: 0,
+        });
     };
     const [stat, setStat] = useState<rspStatItem[]>();
 
