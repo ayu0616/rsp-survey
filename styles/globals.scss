@@ -274,7 +274,7 @@ div.modal {
     background-color: rgba($color: #000000, $alpha: 0.4);
 
     div.modal-back {
-        width: 50%;
+        max-width: 75%;
         max-height: 80%;
 
         background-color: white;
