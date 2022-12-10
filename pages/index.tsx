@@ -249,7 +249,9 @@ export default function Home() {
                         </div>
                     </div>
                 ) : (
-                    ""
+                            <div className="second-description-wrapper">
+                                <h2>2回目の手を選択してください</h2>
+                    </div>
                 )}
             </ShowSelectWrapper>
 
