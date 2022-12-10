@@ -18,6 +18,38 @@ $default-m-size: 1rem;
     }
 }
 
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-col-center {
+    @extend .flex-center;
+    flex-direction: column;
+}
+
+.description-li {
+    list-style: none;
+    position: relative;
+    padding-left: 1rem;
+
+    &:not(:last-child) {
+        margin-bottom: 0.5rem;
+    }
+
+    &::before {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        content: "";
+        display: inline-block;
+        width: 3px;
+        background: #eece34;
+    }
+}
+
 // html {
 //     height: 100vh;
 // }
@@ -70,10 +102,7 @@ body {
             color: black;
             background-color: transparent;
 
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            @extend .flex-col-center;
 
             .hand-emoji {
                 font-size: 5rem;
@@ -98,30 +127,68 @@ body {
             }
         }
 
-        .gender-form-wrapper {
-            .gender-radio-wrapper {
-                &:not(:last-child) {
-                    margin-bottom: 1rem;
+        .first-description-wrapper {
+            width: 100%;
+
+            display: flex;
+            justify-content: space-evenly;
+
+            > .desc {
+                // max-width: 70%
+
+                > ul {
+                    margin: 0;
+                    padding-left: 0;
+
+                    > li {
+                        @extend .description-li;
+                    }
+                }
+            }
+
+            > div {
+                padding: 1rem;
+                &:first-child {
+                    padding-left: 2rem;
+                }
+                &:last-child {
+                    padding-right: 2rem;
                 }
 
-                input[name="gender"] {
-                    display: none;
+                min-width: 275px;
 
-                    + .radio-label {
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        padding: 1rem;
+                display: flex;
+                flex-direction: column;
 
-                        border: 1px lightgray solid;
-                        border-radius: 10px;
-                    }
+                > h2 {
+                    margin: 0;
+                    margin-bottom: 1.5rem;
+                }
 
-                    &:checked {
-                        + .radio-label {
-                            background-color: rgba(51, 255, 0, 0.15);
-                            border-color: rgba(0, 128, 0, 0.6);
-                            box-shadow: 0 0 0 3px rgba(0, 128, 0, 0.5);
+                .gender-form-wrapper {
+                    .gender-radio-wrapper {
+                        &:not(:last-child) {
+                            margin-bottom: 1rem;
+                        }
+
+                        input[name="gender"] {
+                            display: none;
+
+                            + .radio-label {
+                                @extend .flex-center;
+                                padding: 1rem;
+
+                                border: 1px lightgray solid;
+                                border-radius: 10px;
+                            }
+
+                            &:checked {
+                                + .radio-label {
+                                    background-color: rgba(51, 255, 0, 0.15);
+                                    border-color: rgba(0, 128, 0, 0.6);
+                                    box-shadow: 0 0 0 3px rgba(0, 128, 0, 0.5);
+                                }
+                            }
                         }
                     }
                 }
@@ -148,10 +215,7 @@ body {
             color: black;
             background-color: transparent;
 
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            @extend .flex-col-center;
 
             cursor: pointer;
 
@@ -205,9 +269,7 @@ div.modal {
     position: absolute;
     top: 0;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @extend .flex-center;
 
     background-color: rgba($color: #000000, $alpha: 0.4);
 
@@ -238,17 +300,15 @@ div.modal {
         div.modal-body {
             flex-grow: auto;
 
-            div.result-wrapper{
-                display: flex;
-                flex-direction: column;
-                align-items: center;
+            div.result-wrapper {
+                @extend .flex-col-center;
 
-                div.result-jp{
+                div.result-jp {
                     font-size: 5rem;
                     font-weight: bold;
                 }
 
-                div.result-en{
+                div.result-en {
                     font-size: 2rem;
                     color: gray;
                 }
@@ -257,7 +317,7 @@ div.modal {
 
         div.modal-footer {
             display: flex;
-            justify-content: end;
+            justify-content: flex-end;
 
             button.modal-button {
                 @extend .button-primary;
