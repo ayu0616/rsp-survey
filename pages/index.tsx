@@ -46,6 +46,14 @@ export default function Home() {
         setGenderValue(undefined);
         setGameCount(1);
         setResult(undefined);
+        setToSend({
+            timestamp: new Date(),
+            hand1: 0,
+            result1: 0,
+            hand2: 0,
+            result2: 0,
+            gender: 0,
+        });
     };
     const [stat, setStat] = useState<rspStatItem[]>();
 
@@ -194,38 +202,67 @@ export default function Home() {
                         </div>
                     </>
                 ) : gameCount == 1 ? (
-                    <div>
-                        <h2>性別を選択してください</h2>
-                        <div className="gender-form-wrapper">
-                            {([0, 1, 2] as GenderNum[]).map((i) => {
-                                return (
-                                    <div
-                                        className="gender-radio-wrapper"
-                                        key={i}
-                                    >
-                                        <input
-                                            id={genders[i]}
-                                            value={genders[i]}
-                                            type="radio"
-                                            name="gender"
-                                            checked={i == genderValue}
-                                            onChange={() => {
-                                                setGenderValue(i);
-                                            }}
-                                        />
-                                        <label
-                                            htmlFor={genders[i]}
-                                            className="radio-label"
+                    <div className="first-description-wrapper">
+                        <div className="desc">
+                            <h2>アンケートについて</h2>
+                            <ul>
+                                <li>
+                                    このアンケートの目的は「人間がじゃんけんで出す手に傾向があるのか」を調査することです。
+                                </li>
+                                <li>
+                                    コンピューターと2回じゃんけんしていただきます。
+                                </li>
+                                <li>
+                                    コンピューターは同じ確率でランダムに手を出します。すなわち、どの手を選んでも勝率は同じです。
+                                </li>
+                                <li>
+                                    「性別の回答」→「じゃんけん1回目」→「対戦結果表示」→「じゃんけん2回目」→「対戦結果表示」の流れです。
+                                </li>
+                                <li>回答は30秒程度で完了します。</li>
+                                <li>
+                                    収集する情報は「性別」と「じゃんけんの手」だけなので個人を特定することはできません。
+                                </li>
+                                <li>
+                                    ↓の選択肢は毎回シャッフルするので注意してください。
+                                </li>
+                                <li></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h2>性別を選択してください</h2>
+                            <div className="gender-form-wrapper">
+                                {([0, 1, 2] as GenderNum[]).map((i) => {
+                                    return (
+                                        <div
+                                            className="gender-radio-wrapper"
+                                            key={i}
                                         >
-                                            {gendersJp[i]}
-                                        </label>
-                                    </div>
-                                );
-                            })}
+                                            <input
+                                                id={genders[i]}
+                                                value={genders[i]}
+                                                type="radio"
+                                                name="gender"
+                                                checked={i == genderValue}
+                                                onChange={() => {
+                                                    setGenderValue(i);
+                                                }}
+                                            />
+                                            <label
+                                                htmlFor={genders[i]}
+                                                className="radio-label"
+                                            >
+                                                {gendersJp[i]}
+                                            </label>
+                                        </div>
+                                    );
+                                })}
+                            </div>
                         </div>
                     </div>
                 ) : (
-                    ""
+                    <div className="second-description-wrapper">
+                        <h2>2回目の手を選択してください</h2>
+                    </div>
                 )}
             </ShowSelectWrapper>
 
@@ -253,6 +290,13 @@ export default function Home() {
                     </div>
                     <div className="result-en">
                         {result != undefined ? results[result] : ""}
+                    </div>
+                    <div>
+                        <h2>
+                            {gameCount > 2
+                                ? "ご協力ありがとうございました！！！"
+                                : ""}
+                        </h2>
                     </div>
                 </div>
             </Modal>
