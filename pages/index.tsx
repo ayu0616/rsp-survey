@@ -281,6 +281,9 @@ export default function Home() {
                     <div className="result-en">
                         {result != undefined ? results[result] : ""}
                     </div>
+                    <div>
+                        <h2>{gameCount > 2 ? "ご協力ありがとうございました！！！" : ""}</h2>
+                    </div>
                 </div>
             </Modal>
         </div>
