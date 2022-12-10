@@ -292,7 +292,11 @@ export default function Home() {
                         {result != undefined ? results[result] : ""}
                     </div>
                     <div>
-                        <h2>{gameCount > 2 ? "ご協力ありがとうございました！！！" : ""}</h2>
+                        <h2>
+                            {gameCount > 2
+                                ? "ご協力ありがとうございました！！！"
+                                : ""}
+                        </h2>
                     </div>
                 </div>
             </Modal>
