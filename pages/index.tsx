@@ -199,6 +199,9 @@ export default function Home() {
                             <h2>アンケートについて</h2>
                             <ul>
                                 <li>
+                                    このアンケートの目的は「人間がじゃんけんで出す手に傾向があるのか」を調査することです。
+                                </li>
+                                <li>
                                     コンピューターと2回じゃんけんしていただきます。
                                 </li>
                                 <li>
@@ -211,9 +214,7 @@ export default function Home() {
                                 <li>
                                     収集する情報は「性別」と「じゃんけんの手」だけなので個人を特定することはできません。
                                 </li>
-                                    <li>このアンケートの目的は「人間がじゃんけんで出す手に傾向があるのか」を調査することです。
-                                </li>
-                                <li></li>
+                                <li>↓の選択肢は毎回シャッフルするので注意してください。</li>
                                 <li></li>
                             </ul>
                         </div>
@@ -249,8 +250,8 @@ export default function Home() {
                         </div>
                     </div>
                 ) : (
-                            <div className="second-description-wrapper">
-                                <h2>2回目の手を選択してください</h2>
+                    <div className="second-description-wrapper">
+                        <h2>2回目の手を選択してください</h2>
                     </div>
                 )}
             </ShowSelectWrapper>
