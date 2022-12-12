@@ -8,6 +8,9 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { GenderNum, HandNum, ResultNum, rspStatItem } from "types";
 
+const handsJp = ["グー", "チョキ", "パー"] as const;
+const handEmojis = ["✊", "✌️", "🖐"] as const;
+
 const genders = ["male", "female", "others"] as const;
 const gendersJp = ["男", "女", "その他／無回答"] as const;
 
@@ -262,6 +265,23 @@ export default function Home() {
                 ) : (
                     <div className="second-description-wrapper">
                         <h2>2回目の手を選択してください</h2>
+                        <p>
+                            <span style={{ marginRight: "0.25rem" }}>※</span>
+                            1回目：{handsJp[toSend.hand1]}
+                            {handEmojis[toSend.hand1]}
+                            <span style={{ margin: "0 0.5rem" }}>→</span>
+                            <span
+                                style={{
+                                    color:
+                                        result != undefined
+                                            ? resultColor[result]
+                                            : "",
+                                    fontWeight: "bold",
+                                }}
+                            >
+                                {resultJp[toSend.result1]}
+                            </span>
+                        </p>
                     </div>
                 )}
             </ShowSelectWrapper>
